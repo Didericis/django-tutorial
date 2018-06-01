@@ -8,8 +8,8 @@ Django tutorial (https://www.djangoproject.com/start/)
 - [x] Containerize mysite app
 - [ ] Work through tutorial
   - [x] Part 1
-  - [ ] Part 2
-  - [ ] Part 3
+  - [x] Part 2
+  - [x] Part 3
   - [ ] Part 4
   - [ ] Part 5
   - [ ] Part 6
