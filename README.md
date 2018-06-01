@@ -12,6 +12,6 @@ Django tutorial (https://www.djangoproject.com/start/)
   - [x] Part 3
   - [x] Part 4
   - [x] Part 5
-  - [ ] Part 6
+  - [x] Part 6
   - [ ] Part 7
 
