@@ -6,7 +6,6 @@ Django tutorial (https://www.djangoproject.com/start/)
 
 - [x] Switch to postgres db
 - [x] Containerize mysite app
-- [ ] Live code editing via docker
 - [ ] Work through tutorial
   - [x] Part 1
   - [ ] Part 2
