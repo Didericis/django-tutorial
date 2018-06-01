@@ -1,0 +1,13 @@
+{
+  "fullscreen": true,
+  "rows": 180,
+  "command": "vi",
+  "split": {
+    "type": "vertically",
+    "command": "python manage.py runserver",
+    "rows": 60,
+    "split": {
+      "type": "horizontally"
+    }
+  }
+}
