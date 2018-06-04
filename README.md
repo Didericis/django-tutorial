@@ -15,3 +15,6 @@ Django tutorial (https://www.djangoproject.com/start/)
   - [x] Part 6
   - [x] Part 7
 
+## NOTES
+
+- docker exec -it mysite_web_1 <COMMAND>
