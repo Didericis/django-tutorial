@@ -25,3 +25,12 @@ form {
   background: white;
   padding: 1rem;
 }
+
+.fill {
+  width: calc(100% - 1rem);
+  height: calc(100% - 1rem);
+}
+
+.locked {
+
+}

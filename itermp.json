@@ -4,7 +4,7 @@
   "command": "vi",
   "split": {
     "type": "vertically",
-    "command": "python manage.py runserver",
+    "command": "docker-compose up",
     "rows": 60,
     "split": {
       "type": "horizontally"

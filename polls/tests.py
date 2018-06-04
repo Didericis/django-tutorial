@@ -6,14 +6,18 @@ from django.urls import reverse
 
 from .models import Question
 
-def create_question(question_text, days):
+def create_question(question_text, days, private=False):
     """
     Create a question with the given `question_text` and published the
     given number of `days` offset to now (negative for questions published
     in the past, positive for questions that have yet to be published).
     """
     time = timezone.now() + datetime.timedelta(days=days)
-    return Question.objects.create(question_text=question_text, pub_date=time)
+    return Question.objects.create(
+        question_text=question_text, 
+        pub_date=time, 
+        private=private
+     )
 
 class QuestionIndexViewTests(TestCase):
     def test_no_questions(self):
@@ -36,6 +40,15 @@ class QuestionIndexViewTests(TestCase):
             response.context['latest_question_list'],
             ['<Question: Past question.>']
         )
+
+    def test_private_question(self):
+        """
+        Private questions are not displaed
+        """
+        create_question(question_text="Private question", days=-30, private=True)
+        response = self.client.get(reverse('polls:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Private question")
 
     def test_future_question(self):
         """
