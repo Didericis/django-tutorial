@@ -41,6 +41,7 @@ class Vote(models.Model):
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     num = models.IntegerField(default=1)
+    last_updated = models.DateTimeField(auto_now=True)
 
 def vote(self, choice):
     choice.votes += 1

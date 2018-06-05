@@ -23,7 +23,8 @@ Django tutorial (https://www.djangoproject.com/start/)
   - [x] Prevent logged out users from being able to access private questions
 - [x] Add a votes model
   - [x] Create a record per question and user with the selected choice
-- [ ] Add a page to display users votes
+- [x] Add a page to display users votes
+- [x] Add last_updated timestamp
 
 ## NOTES
 
