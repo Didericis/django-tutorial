@@ -1,0 +1,28 @@
+{% extends "./base.html" %}
+
+{% block content %}
+{% load poll_tags %}
+
+<div class="fill">
+  <h1>My Votes</h1>
+  {% if published_questions %}
+      <ul>
+      {% for question in published_questions %}
+        <li>
+          <span>{{ question.question_text }}</span>
+          <ul>
+            {% for choice in question.choice_set.all %}
+            <li>
+              {{ choice.choice_text }}: {% votes_per_user_and_choice user choice %}
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endfor %}
+      </ul>
+  {% else %}
+      <p>No polls are available.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

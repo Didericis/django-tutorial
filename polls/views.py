@@ -42,6 +42,12 @@ class DetailView(QuestionView):
 class ResultsView(QuestionView):
     template_name = 'polls/results.html'
 
+def profile(request):
+    return render(request, 'polls/profile.html', {
+        'user': request.user,
+        'published_questions': Question.objects.published()
+    })
+
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -53,9 +59,5 @@ def vote(request, question_id):
             'error_message': "You didn't select a choice.",
         })
     else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
+        request.user.vote(selected_choice)
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))

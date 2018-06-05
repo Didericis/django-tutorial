@@ -4,8 +4,7 @@ from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
 
-
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from .models import Question, Choice, Vote
 
 def create_question(question_text, days, private=False):
@@ -122,6 +121,18 @@ class QuestionDetailViewTests(TestCase):
         self.assertContains(response, past_question.question_text)
 
 class QuestionModelTests(TestCase):
+    def test_published(self):
+        """
+        published() returns questions whose pub_date is in the past
+        """
+        future_time = timezone.now() + datetime.timedelta(days=30)
+        past_time = timezone.now() + datetime.timedelta(days=-30)
+        future_question = Question.objects.create(pub_date=future_time)
+        past_question = Question.objects.create(pub_date=past_time)
+        published_questions = Question.objects.published()
+        self.assertIn(past_question, published_questions)
+        self.assertNotIn(future_question, published_questions)
+
     def test_was_published_recently_with_future_question(self):
         """
         was_published_recently() returns False for questions whose pub_date
@@ -148,6 +159,66 @@ class QuestionModelTests(TestCase):
         time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
+
+class ChoiceModelTests(TestCase):
+    def test_votes_for_user(self):
+        """
+        votes_for_user() returns number of votes for a given user
+        """
+        time = timezone.now() - datetime.timedelta(days=10)
+        past_question = Question.objects.create(
+            pub_date=time, 
+            question_text="Question"
+        )
+        choice_1 = Choice.objects.create(
+            question=past_question, 
+            choice_text="Choice 1"
+        )
+        choice_2 = Choice.objects.create(
+            question=past_question, 
+            choice_text="Choice 2"
+        )
+        user_1 = User.objects.create_user(
+            username='bm', 
+            first_name="Bob", 
+            last_name="Marley"
+        )
+        user_2 = User.objects.create_user(
+            username="ck",
+            first_name="Carole", 
+            last_name="King"
+        )
+        user_3 = User.objects.create_user(
+            username="dr",
+            first_name="Daniel", 
+            last_name="Radcliff"
+        )
+        user_1.vote(choice_1)
+        user_2.vote(choice_2)
+        self.assertIs(choice_1.num_votes_by_user(user_1), 1)
+        self.assertIs(choice_1.num_votes_by_user(user_2), 0)
+        self.assertIs(choice_1.num_votes_by_user(user_3), 0)
+        self.assertIs(choice_2.num_votes_by_user(user_1), 0)
+        self.assertIs(choice_2.num_votes_by_user(user_2), 1)
+        self.assertIs(choice_2.num_votes_by_user(user_3), 0)
+
+class AnonymousUserVote(TestCase):
+    def test_vote(self):
+        """
+        vote() receives a choice, ups the votes integer for the choice and adds
+        a vote record
+        """
+        time = timezone.now() - datetime.timedelta(days=10)
+        past_question = Question.objects.create(pub_date=time, question_text="How are you?")
+        choice = Choice.objects.create(question=past_question, choice_text="Awesome")
+        # TODO: figure out if there is a better way to assert changes
+        self.assertIs(choice.votes, 0)
+        self.assertIs(Vote.objects.count(), 0)
+        user = AnonymousUser()
+        vote = user.vote(choice)
+        self.assertIs(choice.votes, 1)
+        self.assertIs(Vote.objects.count(), 1)
+        self.assertIs(vote.choice, choice)
 
 class UserModelTests(TestCase):
     def test_vote(self):
