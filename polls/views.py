@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 from .models import Choice, Question
 
@@ -21,8 +22,15 @@ class IndexView(generic.ListView):
             question_set = question_set.filter(private=False)
         return question_set.order_by('-pub_date')[:5]
 
-class DetailView(generic.DetailView):
+class QuestionView(UserPassesTestMixin, generic.DetailView):
     model = Question
+    login_url = 'polls:login'
+    def test_func(self):
+        if self.get_object().private and not self.request.user.is_authenticated:
+            return False
+        return True
+
+class DetailView(QuestionView):
     template_name = 'polls/detail.html'
 
     def get_queryset(self):
@@ -31,8 +39,7 @@ class DetailView(generic.DetailView):
         """
         return Question.objects.filter(pub_date__lte=timezone.now())
 
-class ResultsView(generic.DetailView):
-    model = Question
+class ResultsView(QuestionView):
     template_name = 'polls/results.html'
 
 def vote(request, question_id):

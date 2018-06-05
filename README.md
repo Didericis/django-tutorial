@@ -17,10 +17,10 @@ Django tutorial (https://www.djangoproject.com/start/)
   
 ## Part II
 - [x] Add ability to login and logout
-- [ ] Make questions public or private
+- [x] Make questions public or private
   - [x] Add "private" boolean column to questions
   - [x] Do not display private questions
-  - [ ] Prevent logged out users from being able to access private questions
+  - [x] Prevent logged out users from being able to access private questions
 - [ ] Add a votes model
   - [ ] Create a record per question and user with the selected choice
 - [ ] Add a page to display users votes

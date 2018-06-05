@@ -86,6 +86,19 @@ class QuestionIndexViewTests(TestCase):
         )
 
 class QuestionDetailViewTests(TestCase):
+    def test_private_question(self):
+        """
+        Private questions are not displaed when logged out
+        """
+        private_question = create_question(
+            question_text="Private question", 
+            days=-30, 
+            private=True
+        )
+        url = reverse('polls:detail', args=(private_question.id,))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
     def test_future_question(self):
         """
         The detail view of a question with a pub_date in the future
