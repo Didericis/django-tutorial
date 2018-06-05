@@ -43,7 +43,7 @@ class QuestionIndexViewTests(TestCase):
 
     def test_private_question(self):
         """
-        Private questions are not displaed
+        Private questions are not displaed when logged out
         """
         create_question(question_text="Private question", days=-30, private=True)
         response = self.client.get(reverse('polls:index'))
