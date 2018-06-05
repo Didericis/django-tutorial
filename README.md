@@ -21,8 +21,8 @@ Django tutorial (https://www.djangoproject.com/start/)
   - [x] Add "private" boolean column to questions
   - [x] Do not display private questions
   - [x] Prevent logged out users from being able to access private questions
-- [ ] Add a votes model
-  - [ ] Create a record per question and user with the selected choice
+- [x] Add a votes model
+  - [x] Create a record per question and user with the selected choice
 - [ ] Add a page to display users votes
 
 ## NOTES

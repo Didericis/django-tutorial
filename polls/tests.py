@@ -4,7 +4,9 @@ from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
 
-from .models import Question
+
+from django.contrib.auth.models import User
+from .models import Question, Choice, Vote
 
 def create_question(question_text, days, private=False):
     """
@@ -146,3 +148,22 @@ class QuestionModelTests(TestCase):
         time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
+
+class UserModelTests(TestCase):
+    def test_vote(self):
+        """
+        vote() receives a choice, ups the votes integer for the choice and adds
+        a vote record
+        """
+        time = timezone.now() - datetime.timedelta(days=10)
+        past_question = Question.objects.create(pub_date=time, question_text="How are you?")
+        choice = Choice.objects.create(question=past_question, choice_text="Awesome")
+        user = User.objects.create(first_name="Bob", last_name="Marley")
+        # TODO: figure out if there is a better way to assert changes
+        self.assertIs(choice.votes, 0)
+        self.assertIs(Vote.objects.count(), 0)
+        vote = user.vote(choice)
+        self.assertIs(choice.votes, 1)
+        self.assertIs(Vote.objects.count(), 1)
+        self.assertIs(vote.choice, choice)
+        self.assertIs(vote.user, user)
