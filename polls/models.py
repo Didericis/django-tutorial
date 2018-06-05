@@ -29,7 +29,10 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
 
     def num_votes_by_user(self, user):
-        return self.vote_set.filter(user=user).count()
+        try:
+            return self.vote_set.get(user=user).num
+        except (Vote.DoesNotExist):
+            return 0
 
     def __str__(self):
         return self.choice_text
@@ -37,14 +40,19 @@ class Choice(models.Model):
 class Vote(models.Model):
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    num = models.IntegerField(default=1)
 
 def vote(self, choice):
     choice.votes += 1
     choice.save()
-    return Vote.objects.create(
+    vote,created = Vote.objects.get_or_create(
         user=(self if type(self) is User else None),
         choice=choice
     )
+    if not created:
+        vote.num += 1
+        vote.save()
+    return vote
 
 User.add_to_class("vote", vote)
 AnonymousUser.vote = vote
