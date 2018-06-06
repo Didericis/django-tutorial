@@ -45,3 +45,4 @@ DJango REST framework tutorial (http://www.django-rest-framework.org/#quickstart
 ## NOTES
 
 - docker exec -it mysite_web_1 <COMMAND>
+

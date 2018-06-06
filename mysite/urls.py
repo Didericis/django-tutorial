@@ -20,8 +20,8 @@ from django.conf.urls import url
 urlpatterns = [
     # NB: all of these begin with 'snippets'. prefix was not added here
     #     so we could use format_suffix_patterns
-    path('', include('snippets.urls')),
     url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'^api/', include('api.urls')),
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
 ]
