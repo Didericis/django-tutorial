@@ -30,7 +30,7 @@ DJango REST framework tutorial (http://www.django-rest-framework.org/#quickstart
 
 - [ ] Go through snippets tutorial
   - [x] Part 1
-  - [ ] Part 2
+  - [x] Part 2
   - [ ] Part 3
   - [ ] Part 4
   - [ ] Part 5

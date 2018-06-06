@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('snippets/', include('snippets.urls')),
+    # NB: all of these begin with 'snippets'. prefix was not added here
+    #     so we could use format_suffix_patterns
+    path('', include('snippets.urls')),
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
 ]
