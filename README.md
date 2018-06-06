@@ -28,9 +28,17 @@ Auth exercise (https://docs.djangoproject.com/en/2.0/topics/auth/default/)
 ## Part III
 DJango REST framework tutorial (http://www.django-rest-framework.org/#quickstart)
 
-- [ ] Add auth endpoint for django rest framework
-- [ ] Add endpoint to get list of questions 
-- [ ] Add endpoint to get responses for questions
+- [ ] Go through snippets tutorial
+  - [x] Part 1
+  - [ ] Part 2
+  - [ ] Part 3
+  - [ ] Part 4
+  - [ ] Part 5
+  - [ ] Part 6
+  - [ ] Part 7
+- [ ] Add REST endpoints to polls app
+  - [ ] Add endpoint to get list of questions 
+  - [ ] Add endpoint to get responses for questions
 - [ ] Add fixtures
 - [ ] Tweak Vote model 
 
