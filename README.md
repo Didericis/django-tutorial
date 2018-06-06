@@ -1,8 +1,5 @@
-# django-tutorial
-
-Django tutorial (https://www.djangoproject.com/start/)
-
 ## Part I
+Django tutorial (https://www.djangoproject.com/start/)
 
 - [x] Switch to postgres db
 - [x] Containerize mysite app
@@ -16,6 +13,8 @@ Django tutorial (https://www.djangoproject.com/start/)
   - [x] Part 7
   
 ## Part II
+Auth exercise (https://docs.djangoproject.com/en/2.0/topics/auth/default/)
+
 - [x] Add ability to login and logout
 - [x] Make questions public or private
   - [x] Add "private" boolean column to questions
@@ -25,6 +24,15 @@ Django tutorial (https://www.djangoproject.com/start/)
   - [x] Create a record per question and user with the selected choice
 - [x] Add a page to display users votes
 - [x] Add last_updated timestamp
+
+## Part III
+DJango REST framework tutorial (http://www.django-rest-framework.org/#quickstart)
+
+- [ ] Add auth endpoint for django rest framework
+- [ ] Add endpoint to get list of questions 
+- [ ] Add endpoint to get responses for questions
+- [ ] Add fixtures
+- [ ] Tweak Vote model 
 
 ## NOTES
 
