@@ -24,7 +24,7 @@ class IndexView(generic.ListView):
 
 class QuestionView(UserPassesTestMixin, generic.DetailView):
     model = Question
-    login_url = 'polls:login'
+    login_url = 'auth_app:login'
     def test_func(self):
         if self.get_object().private and not self.request.user.is_authenticated:
             return False
