@@ -36,9 +36,10 @@ DJango REST framework tutorial (http://www.django-rest-framework.org/#quickstart
   - [x] Part 5
   - [x] Part 6
   - [x] Part 7
-- [ ] Add REST endpoints to polls app
-  - [ ] Add endpoint to get list of questions 
-  - [ ] Add endpoint to get responses for questions
+- [x] Add REST endpoints to polls app
+  - [x] Refactor how api routes are declared
+  - [x] Add endpoint to get list of questions 
+  - [x] Add endpoint to get choices
 - [ ] Add fixtures
 - [ ] Tweak Vote model 
 
