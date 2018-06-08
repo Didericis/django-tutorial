@@ -11,7 +11,7 @@
         <li>
           <span>{{ question.question_text }}</span>
           <ul>
-            {% for choice in question.choice_set.all %}
+            {% for choice in question.choices.all %}
             <li>
               {{ choice.choice_text }}: {% votes_per_user_and_choice user choice %}
             </li>

@@ -213,11 +213,12 @@ class AnonymousUserVote(TestCase):
         past_question = Question.objects.create(pub_date=time, question_text="How are you?")
         choice = Choice.objects.create(question=past_question, choice_text="Awesome")
         # TODO: figure out if there is a better way to assert changes
-        self.assertIs(choice.votes, 0)
+        self.assertIs(choice.votes.count(), 0)
         self.assertIs(Vote.objects.count(), 0)
         user = AnonymousUser()
         vote = user.vote(choice)
-        self.assertIs(choice.votes, 1)
+        self.assertIs(choice.vote_count, 1)
+        self.assertIs(choice.votes.count(), 1)
         self.assertIs(Vote.objects.count(), 1)
         self.assertIs(vote.choice, choice)
 
@@ -232,15 +233,15 @@ class UserModelTests(TestCase):
         choice = Choice.objects.create(question=past_question, choice_text="Awesome")
         user = User.objects.create(first_name="Bob", last_name="Marley")
         # TODO: figure out if there is a better way to assert changes
-        self.assertIs(choice.votes, 0)
+        self.assertIs(choice.votes.count(), 0)
         self.assertIs(Vote.objects.count(), 0)
         vote = user.vote(choice)
-        self.assertIs(choice.votes, 1)
+        self.assertIs(choice.votes.count(), 1)
         self.assertIs(Vote.objects.count(), 1)
         self.assertIs(vote.choice, choice)
         self.assertIs(vote.user, user)
 
         new_vote = user.vote(choice)
         self.assertIs(Vote.objects.count(), 2)
-        self.assertIs(choice.votes, 2)
+        self.assertIs(choice.votes.count(), 2)
         self.assertIsNot(new_vote.id, vote.id)

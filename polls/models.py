@@ -27,13 +27,13 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices')
     choice_text = models.CharField(max_length=200)
 
-    def _votes(self):
-        return self.vote_set.count()
-    votes = property(_votes)
+    def _vote_count(self):
+        return self.votes.all().count()
+    vote_count = property(_vote_count)
 
     def num_votes_by_user(self, user):
         try:
-            return self.vote_set.filter(user=user).count()
+            return self.votes.filter(user=user).count()
         except (Vote.DoesNotExist):
             return 0
 
@@ -41,8 +41,8 @@ class Choice(models.Model):
         return self.choice_text
 
 class Vote(models.Model):
-    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE, related_name='votes')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True, related_name='votes')
     created = models.DateTimeField(auto_now=True)
 
     class Meta:

@@ -42,8 +42,3 @@ DJango REST framework tutorial (http://www.django-rest-framework.org/#quickstart
   - [x] Add endpoint to get choices
 - [x] Tweak Vote model 
 - [ ] Add fixtures
-
-## NOTES
-
-- docker exec -it mysite_web_1 <COMMAND>
-
