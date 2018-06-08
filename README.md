@@ -41,4 +41,4 @@ DJango REST framework tutorial (http://www.django-rest-framework.org/#quickstart
   - [x] Add endpoint to get list of questions 
   - [x] Add endpoint to get choices
 - [x] Tweak Vote model 
-- [ ] Add fixtures
+- [x] Add fixtures
