@@ -4,11 +4,18 @@ from django.contrib.auth.models import User
 from polls.models import Choice, Question
 
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
+    choices = serializers.HyperlinkedRelatedField(
+        many=True, 
+        view_name='choice-detail',
+        read_only=True
+    )
     class Meta:
         model = Question
-        fields = ('id', 'question_text', 'pub_date', 'private', 'url')
+        fields = (
+            'id', 'choices', 'question_text', 'pub_date', 'private', 'url'
+        )
 
 class ChoiceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Choice
-        fields = ('id', 'choice_text', 'votes', 'url')
+        fields = ('id', 'question', 'choice_text', 'votes', 'url')
